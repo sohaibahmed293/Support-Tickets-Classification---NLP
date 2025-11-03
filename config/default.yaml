@@ -1,0 +1,45 @@
+data:
+  raw_path: data/raw/consumer_complaints.json
+  format: json
+  record_key: _source
+  text_column: complaint_what_happened
+  label_column: product
+  drop_empty_text: true
+  drop_missing_label: true
+  limit_records: 10000
+  min_label_count: 20
+  test_size: 0.2
+  random_state: 42
+
+preprocessing:
+  lowercase: true
+  remove_punctuation: true
+  remove_stopwords: true
+  lemmatize: true
+  max_features: 20000
+  ngram_range: [1, 2]
+
+models:
+  logistic_regression:
+    C: 1.0
+    max_iter: 200
+    class_weight: balanced
+    n_jobs: -1
+  random_forest:
+    n_estimators: 200
+    max_depth: null
+    class_weight: balanced
+    n_jobs: -1
+
+grid_search:
+  logistic_regression:
+    C: [0.1, 1.0, 10.0]
+    penalty: ["l2"]
+  random_forest:
+    n_estimators: [100, 200, 300]
+    max_depth: [null, 50, 100]
+    max_features: ["sqrt", "log2"]
+
+evaluation:
+  metrics: ["accuracy", "precision", "recall", "f1"]
+  average: weighted
