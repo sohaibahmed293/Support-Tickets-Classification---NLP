@@ -106,6 +106,23 @@ flask run
 - Each prediction is archived in `webapp/predictions.db` (SQLite). Use the “Clear” button in the sidebar to wipe the history.
 - Tailwind CSS is served via CDN, so no additional build step is required.
 
+### Quick Launch Script Usage
+The helper script wraps the environment activation and `flask run` command:
+1. From the project root, ensure the script is executable (only needed once):  
+   ```bash
+   chmod +x scripts/start_app.sh
+   ```
+2. Start the development server with sensible defaults:  
+   ```bash
+   ./scripts/start_app.sh
+   ```
+   This activates `.venv` (if present), exposes `MODEL_ARTEFACT_DIR=artifacts`, and listens on port `5000`.
+3. Pass any additional `flask run` flags—e.g., a different port or host:  
+   ```bash
+   ./scripts/start_app.sh --port 5002 --host 0.0.0.0
+   ```
+4. Stop the server with `Ctrl+C` when you're done.
+
 ## Evaluation Notebook
 Open `notebooks/evaluation.ipynb` to explore the dataset, recreate evaluation metrics, and generate sample predictions in hosted notebook environments (e.g. Colab, Kaggle). Adjust the artefact selection cell if you store models in a custom location.
 
